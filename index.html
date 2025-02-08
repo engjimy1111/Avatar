@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Multilingual AI Avatar</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            font-family: Arial, sans-serif;
+            background: url('background.png') no-repeat center center fixed;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        canvas {
+            display: block;
+        }
+        .controls {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            z-index: 10;
+        }
+        .controls button {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: 0.3s;
+            width: 120px;
+            background: #ccc;
+            color: #333;
+        }
+        .controls button:hover {
+            background: #bbb;
+        }
+        .controls button.active {
+            background: #007BFF;
+            color: white;
+        }
+        .controls input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-size: 14px;
+            width: 120px;
+        }
+        .speech-display {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 90%;
+            max-width: 300px;
+            background: white;
+            border-radius: 12px;
+            padding: 15px;
+            max-height: 200px;
+            overflow-y: auto;
+            font-size: 16px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            z-index: 10;
+        }
+        .speech-line {
+            margin: 5px 0;
+        }
+        .user {
+            font-weight: bold;
+            color: #007BFF;
+        }
+        .avatar {
+            font-weight: bold;
+            color: #FF5722;
+        }
+        [dir="rtl"] .controls {
+            right: auto;
+            left: 20px;
+        }
+        [dir="rtl"] .speech-display {
+            right: auto;
+            left: 20px;
+            text-align: right;
+        }
+    </style>
+    <!-- Rhubarb Lip Sync Library -->
+    <script src="rhubarb.min.js"></script>
+    <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.161.0/build/three.module.min.js",
+        "three/examples/jsm/": "https://cdn.jsdelivr.net/npm/three@0.161.0/examples/jsm/"
+      }
+    }
+    </script>
+</head>
+<body>
+    <div class="controls">
+        <button onclick="toggleLanguage()" id="langToggle" class="active">🌍 EN</button>
+        <button onclick="startListening()">🎤 Start</button>
+        <input type="text" id="textInput" placeholder="Type..." onkeydown="handleKeyPress(event)" dir="auto">
+        <button onclick="processText()">➡️ Send</button>
+        <button onclick="stopSpeaking()">❌ Stop</button>
+        <button onclick="resetAvatar()">🔄 Reset</button>
+    </div>
+    <div class="speech-display" id="speechDisplay"></div>
+    
+    <!-- Debug Rhubarb Availability -->
+    <script>
+        window.addEventListener('load', () => {
+            console.log('Rhubarb available:', typeof Rhubarb !== 'undefined');
+        });
+    </script>
+
+    <!-- Main Script -->
+    <script type="module" src="script.js"></script>
+</body>
+</html>
